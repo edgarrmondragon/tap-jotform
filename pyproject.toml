@@ -1,0 +1,37 @@
+[tool.poetry]
+name = "tap-jotform"
+version = "0.0.1"
+description = "`tap-jotform` is a Singer tap for Jotform, built with the Meltano SDK for Singer Taps."
+authors = ["Edgar Ramírez-Mondragón <edgarrm358@gmail.com>"]
+keywords = [
+    "ELT",
+    "Jotform",
+]
+license = "Apache 2.0"
+
+[tool.poetry.dependencies]
+python = "<3.10,>=3.7"
+requests = "^2.25.1"
+singer-sdk = "^0.3.10"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.1.2"
+requests-cache = "^0.8.1"
+black = {version = "^21.9b0", allow-prereleases = true}
+isort = "^5.9.3"
+
+[tool.black]
+line-length = 88
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3 # Vertical Hanging Indent
+src_paths = "tap_jotform"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+# CLI declaration
+tap-jotform = 'tap_jotform.tap:TapJotform.cli'
