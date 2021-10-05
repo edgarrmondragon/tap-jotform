@@ -58,9 +58,9 @@ class FormsStream(JotformPaginatedStream):
 class QuestionsForms(JotformStream):
     "Questions stream."
 
-    name = "question"
+    name = "questions"
     path = "/form/{form_id}/questions"
-    primary_keys = ["qid"]
+    primary_keys = ["form_id", "qid"]
     replication_key = None
     records_jsonpath = "$.content.*"
     parent_stream_type = FormsStream
