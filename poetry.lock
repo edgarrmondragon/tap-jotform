@@ -2,7 +2,7 @@
 name = "appdirs"
 version = "1.4.4"
 description = "A small Python module for determining appropriate platform-specific dirs, e.g. a \"user data dir\"."
-category = "dev"
+category = "main"
 optional = false
 python-versions = "*"
 
@@ -65,7 +65,7 @@ uvloop = ["uvloop (>=0.15.2)"]
 name = "cattrs"
 version = "1.8.0"
 description = "Composable complex class support for attrs and dataclasses."
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.7,<4.0"
 
@@ -476,7 +476,7 @@ use_chardet_on_py3 = ["chardet (>=3.0.2,<5)"]
 name = "requests-cache"
 version = "0.8.1"
 description = "A transparent persistent cache for the requests library"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.7,<4.0"
 
@@ -576,7 +576,7 @@ python-versions = "*"
 name = "url-normalize"
 version = "1.4.3"
 description = "URL normalization for Python"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*"
 
@@ -611,7 +611,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytes
 [metadata]
 lock-version = "1.1"
 python-versions = "<3.10,>=3.7"
-content-hash = "c675071f2573431fcdeec0f2b95fa554e4852f37d48a07453ea437723e653063"
+content-hash = "0a543ffb51f824dac90e13ef681f44af7cbbe1911f7c474a1047b63ae3101227"
 
 [metadata.files]
 appdirs = [
