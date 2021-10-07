@@ -40,23 +40,26 @@ class TapJotform(Tap):
     def config_jsonschema(cls):
         return th.PropertiesList(
             th.Property(
+                "api_key",
+                th.StringType,
+                required=True,
+                description=(
+                    "Authentication key. "
+                    "See https://api.jotform.com/docs/#authentication")
+                ,
+            ),
+            th.Property(
                 "api_url",
                 th.StringType,
                 required=False,
                 default="https://api.jotform.com",
-                description="The URL API",
-            ),
-            th.Property(
-                "api_key",
-                th.StringType,
-                required=True,
-                description="The token to authenticate against the API service",
+                description="API Base URL",
             ),
             th.Property(
                 "user_agent",
                 th.StringType,
                 default=f"{cls.name}/{cls.plugin_version}",
-                description="User-Agent",
+                description="User-Agent header",
             ),
         ).to_dict()
 

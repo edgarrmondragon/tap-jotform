@@ -1,31 +1,25 @@
-# tap-jotform
+# `tap-jotform`
 
-`tap-jotform` is a Singer tap for Jotform.
+Singer Tap for Jotform.
 
-Built with the [Meltano Tap SDK](https://sdk.meltano.com) for Singer Taps.
+Built with the [Meltano SDK](https://sdk.meltano.com) for Singer Taps and Targets.
 
-## Installation
+## Capabilities
 
-```bash
-pipx install git+https://github.com/edgarrmondragon/tap-jotform.git
-```
+* `sync`
+* `catalog`
+* `state`
+* `discover`
 
-## Configuration
+## Settings
 
-### Accepted Config Options
+| Setting   | Required | Default | Description |
+|:----------|:--------:|:-------:|:------------|
+| `api_key` | True     | None    | Authentication key. See https://api.jotform.com/docs/#authentication |
+| `api_url` | False    | https://api.jotform.com | API Base URL |
+| `user_agent` | False    | tap-jotform/0.0.1 | User-Agent header |
 
-A full list of supported settings and capabilities for this
-tap is available by running:
-
-```bash
-tap-jotform --about
-```
-
-| Setting | Required | Default | Description |
-|:-:|:-:|:-:|:-:|
-| `api_key` | Yes || Authentication key. See https://api.jotform.com/docs/#authentication |
-| `api_url` | No | `https://api.jotform.com` | API Base URL |
-| `user_agent` | No | `tap-jotform/x.y.z` | User-Agent header |
+A full list of supported settings and capabilities is available by running: `tap-jotform --about`
 
 ### Source Authentication and Authorization
 
