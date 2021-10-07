@@ -16,7 +16,6 @@ class JotformStream(RESTStream):
 
     page_size = 100
     primary_keys = ["id"]
-    replication_key = "created_at"
     records_jsonpath = "$.content[*]"
 
     INTEGER_FIELDS = []
@@ -66,6 +65,8 @@ class JotformStream(RESTStream):
 class JotformPaginatedStream(JotformStream):
     """A Jotform stream with pagination."""
 
+    replication_key = "updated_at"
+
     def get_next_page_token(
         self,
         response: requests.Response,
@@ -86,11 +87,20 @@ class JotformPaginatedStream(JotformStream):
         self, context: Optional[dict], next_page_token: Optional[int]
     ) -> Dict[str, Any]:
         """Return a dictionary of values to be used in URL parameterization."""
-        # state = self.get_context_state(context)
-        # self.logger.info("STATE %s", state)
         params = {"limit": self.page_size}
+
+        starting_value = self.get_starting_timestamp(context)
+        if starting_value:
+            self.logger.info("Bookmark found", bookmark=starting_value)
+            params["filter"] = f'{{"{self.replication_key}:gt": "{starting_value}"}}'
 
         if next_page_token:
             params["offset"] = next_page_token
+        self.logger.info("Params", params=params)
 
         return params
+
+    def post_process(self, row: dict, context: Optional[dict] = None) -> dict:
+        row = super().post_process(row, context)
+        row["updated_at"] = row["updated_at"] or row["created_at"]
+        return row
