@@ -2,9 +2,11 @@
 
 from typing import List
 
+import structlog
 from singer_sdk import Stream, Tap
 from singer_sdk import typing as th
 from singer_sdk.helpers._classproperty import classproperty
+from structlog.contextvars import bind_contextvars, merge_contextvars
 
 from tap_jotform.streams import FormsStream, QuestionsForms, SubmissionsStream
 
@@ -14,11 +16,25 @@ STREAM_TYPES = [
     SubmissionsStream,
 ]
 
+structlog.configure(
+    processors=[
+        merge_contextvars,
+        # structlog.processors.JSONRenderer(),
+        structlog.dev.ConsoleRenderer(colors=True),
+    ],
+    logger_factory=structlog.stdlib.LoggerFactory(),
+)
+
 
 class TapJotform(Tap):
     """Singer Tap for Jotform."""
 
     name = "tap-jotform"
+
+    @classproperty
+    def logger(cls):
+        bind_contextvars(tap=cls.name, version=cls.plugin_version)
+        return structlog.get_logger()
 
     @classproperty
     def config_jsonschema(cls):

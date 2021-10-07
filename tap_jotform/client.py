@@ -6,6 +6,7 @@ import requests
 import requests_cache
 from singer_sdk.authenticators import APIKeyAuthenticator
 from singer_sdk.streams import RESTStream
+from structlog.contextvars import bind_contextvars
 
 requests_cache.install_cache("requests_cache")
 
@@ -19,6 +20,14 @@ class JotformStream(RESTStream):
     records_jsonpath = "$.content[*]"
 
     INTEGER_FIELDS = []
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        bind_contextvars(stream=self.name)
+
+    def _sync_records(self, context: Optional[dict] = None) -> None:
+        bind_contextvars(context=context)
+        return super()._sync_records(context=context)
 
     @property
     def url_base(self) -> str:
@@ -49,6 +58,10 @@ class JotformStream(RESTStream):
             row[field] = int(value) if value else None
         return row
 
+    def parse_response(self, response: requests.Response):
+        self.logger.info("Received response", limit_left=response.json()["limit-left"])
+        yield from super().parse_response(response)
+
 
 class JotformPaginatedStream(JotformStream):
     """A Jotform stream with pagination."""
@@ -73,8 +86,8 @@ class JotformPaginatedStream(JotformStream):
         self, context: Optional[dict], next_page_token: Optional[int]
     ) -> Dict[str, Any]:
         """Return a dictionary of values to be used in URL parameterization."""
-        state = self.get_context_state(context)
-        self.logger.info("STATE %s", state)
+        # state = self.get_context_state(context)
+        # self.logger.info("STATE %s", state)
         params = {"limit": self.page_size}
 
         if next_page_token:
