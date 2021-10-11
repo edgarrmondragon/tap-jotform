@@ -127,8 +127,7 @@ class SubmissionsStream(JotformPaginatedStream):
     """Submissions stream."""
 
     name = "submissions"
-    path = "/form/{form_id}/submissions"
-    parent_stream_type = FormsStream
+    path = "/user/submissions"
 
     INTEGER_FIELDS = [
         "flag",
