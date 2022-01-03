@@ -472,7 +472,7 @@ use_chardet_on_py3 = ["chardet (>=3.0.2,<5)"]
 
 [[package]]
 name = "requests-cache"
-version = "0.8.1"
+version = "0.9.0"
 description = "A transparent persistent cache for the requests library"
 category = "main"
 optional = false
@@ -488,14 +488,14 @@ urllib3 = ">=1.25.5,<2.0.0"
 
 [package.extras]
 dynamodb = ["boto3 (>=1.15,<2.0)", "botocore (>=1.18,<2.0)"]
-all = ["boto3 (>=1.15,<2.0)", "botocore (>=1.18,<2.0)", "pymongo (>=3.0,<4.0)", "redis (>=3.0,<4.0)", "itsdangerous (>=2.0,<3.0)", "pyyaml (>=5.4)", "ujson (>=4.0)"]
-mongodb = ["pymongo (>=3.0,<4.0)"]
-redis = ["redis (>=3.0,<4.0)"]
+all = ["boto3 (>=1.15,<2.0)", "botocore (>=1.18,<2.0)", "pymongo (>=3,<5)", "redis (>=3,<5)", "itsdangerous (>=2.0,<3.0)", "pyyaml (>=5.4)", "ujson (>=4.0)"]
+mongodb = ["pymongo (>=3,<5)"]
+redis = ["redis (>=3,<5)"]
 bson = ["bson (>=0.5)"]
 security = ["itsdangerous (>=2.0,<3.0)"]
 yaml = ["pyyaml (>=5.4)"]
 json = ["ujson (>=4.0)"]
-docs = ["furo (>=2021.8.11-beta.42)", "linkify-it-py (>=1.0.1,<2.0.0)", "myst-parser (>=0.15.1,<0.16.0)", "sphinx (==4.1.2)", "sphinx-autodoc-typehints (>=1.11,<2.0)", "sphinx-automodapi (>=0.13,<0.14)", "sphinx-copybutton (>=0.3,<0.5)", "sphinx-inline-tabs (>=2021.4.11-beta.9,<2022.0.0)", "sphinx-notfound-page", "sphinx-panels (>=0.6,<0.7)", "sphinxcontrib-apidoc (>=0.3,<0.4)"]
+docs = ["furo (>=2021.9.8)", "linkify-it-py (>=1.0.1,<2.0.0)", "myst-parser (>=0.15.1,<0.16.0)", "sphinx (==4.3.0)", "sphinx-autodoc-typehints (>=1.11,<2.0)", "sphinx-automodapi (>=0.13,<0.14)", "sphinx-copybutton (>=0.3,<0.5)", "sphinx-inline-tabs (>=2021.8.17b10,<2022.0.0)", "sphinx-notfound-page", "sphinx-panels (>=0.6,<0.7)", "sphinxcontrib-apidoc (>=0.3,<0.4)"]
 
 [[package]]
 name = "simplejson"
@@ -625,7 +625,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytes
 [metadata]
 lock-version = "1.1"
 python-versions = "<3.11,>=3.7"
-content-hash = "dcd51ca0fb95956238ecd027b04c00ef20af198ad3edc9eb299ceebe5bb8cf01"
+content-hash = "bac185f1a0628693f43d39c0b10c2291fca39c776471af57d8dbe9785a0fedca"
 
 [metadata.files]
 appdirs = [
@@ -730,6 +730,8 @@ cryptography = [
     {file = "cryptography-3.4.8-cp36-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:34dae04a0dce5730d8eb7894eab617d8a70d0c97da76b905de9efb7128ad7085"},
     {file = "cryptography-3.4.8-cp36-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:1eb7bb0df6f6f583dd8e054689def236255161ebbcf62b226454ab9ec663746b"},
     {file = "cryptography-3.4.8-cp36-abi3-manylinux_2_24_x86_64.whl", hash = "sha256:9965c46c674ba8cc572bc09a03f4c649292ee73e1b683adb1ce81e82e9a6a0fb"},
+    {file = "cryptography-3.4.8-cp36-abi3-musllinux_1_1_aarch64.whl", hash = "sha256:3c4129fc3fdc0fa8e40861b5ac0c673315b3c902bbdc05fc176764815b43dd1d"},
+    {file = "cryptography-3.4.8-cp36-abi3-musllinux_1_1_x86_64.whl", hash = "sha256:695104a9223a7239d155d7627ad912953b540929ef97ae0c34c7b8bf30857e89"},
     {file = "cryptography-3.4.8-cp36-abi3-win32.whl", hash = "sha256:21ca464b3a4b8d8e86ba0ee5045e103a1fcfac3b39319727bc0fc58c09c6aff7"},
     {file = "cryptography-3.4.8-cp36-abi3-win_amd64.whl", hash = "sha256:3520667fda779eb788ea00080124875be18f2d8f0848ec00733c0ec3bb8219fc"},
     {file = "cryptography-3.4.8-pp36-pypy36_pp73-manylinux_2_12_x86_64.manylinux2010_x86_64.whl", hash = "sha256:d2a6e5ef66503da51d2110edf6c403dc6b494cc0082f85db12f54e9c5d4c3ec5"},
@@ -894,8 +896,8 @@ requests = [
     {file = "requests-2.26.0.tar.gz", hash = "sha256:b8aa58f8cf793ffd8782d3d8cb19e66ef36f7aba4353eec859e74678b01b07a7"},
 ]
 requests-cache = [
-    {file = "requests-cache-0.8.1.tar.gz", hash = "sha256:27d3eb276ab3affa9864dfc0475241d6d960dd566d57ec46ffa7759c2c74ed1c"},
-    {file = "requests_cache-0.8.1-py3-none-any.whl", hash = "sha256:f36104f95ee78bba3d13a2692fe7c0fa8623872275949836789d98d359e79390"},
+    {file = "requests-cache-0.9.0.tar.gz", hash = "sha256:d82b3af855ffc16807a401cfe5a924957a083512b430e635045cee767b99d169"},
+    {file = "requests_cache-0.9.0-py3-none-any.whl", hash = "sha256:dbcb543e2ffbd365f0e88d9d63081c305673a1e10b8b9679dd990bb2c57864d9"},
 ]
 simplejson = [
     {file = "simplejson-3.11.1-cp27-cp27m-win32.whl", hash = "sha256:38c2b563cd03363e7cb2bbba6c20ae4eaafd853a83954c8c8dd345ee391787bf"},
