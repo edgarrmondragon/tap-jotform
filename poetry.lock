@@ -380,16 +380,17 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
 [[package]]
 name = "pyjwt"
-version = "1.7.1"
+version = "2.3.0"
 description = "JSON Web Token implementation in Python"
 category = "main"
 optional = false
-python-versions = "*"
+python-versions = ">=3.6"
 
 [package.extras]
-crypto = ["cryptography (>=1.4)"]
-flake8 = ["flake8", "flake8-import-order", "pep8-naming"]
-test = ["pytest (>=4.0.1,<5.0.0)", "pytest-cov (>=2.6.0,<3.0.0)", "pytest-runner (>=4.2,<5.0.0)"]
+crypto = ["cryptography (>=3.3.1)"]
+dev = ["sphinx", "sphinx-rtd-theme", "zope.interface", "cryptography (>=3.3.1)", "pytest (>=6.0.0,<7.0.0)", "coverage[toml] (==5.0.4)", "mypy", "pre-commit"]
+docs = ["sphinx", "sphinx-rtd-theme", "zope.interface"]
+tests = ["pytest (>=6.0.0,<7.0.0)", "coverage[toml] (==5.0.4)"]
 
 [[package]]
 name = "pyparsing"
@@ -514,7 +515,7 @@ python-versions = "*"
 
 [[package]]
 name = "singer-sdk"
-version = "0.4.6"
+version = "0.4.7"
 description = "A framework for building Singer taps"
 category = "main"
 optional = false
@@ -531,7 +532,7 @@ jsonpath-ng = ">=1.5.3,<2.0.0"
 memoization = ">=0.3.2,<0.4.0"
 pendulum = ">=2.1.0,<3.0.0"
 pipelinewise-singer-python = "1.2.0"
-PyJWT = "1.7.1"
+PyJWT = ">=2.3,<3.0"
 requests = ">=2.25.1,<3.0.0"
 sqlalchemy = ">=1.4,<2.0"
 
@@ -658,7 +659,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytes
 [metadata]
 lock-version = "1.1"
 python-versions = "<3.11,>=3.7.1"
-content-hash = "f0ba01673ae5caba2cda0ff5177682f7edc122246e927cc96f2c6d3fad605537"
+content-hash = "ae17c2f0cb9442d8d1a512f207f8e0dd53005c98b7412d712383b270ae02b962"
 
 [metadata.files]
 appdirs = [
@@ -956,8 +957,8 @@ pycparser = [
     {file = "pycparser-2.21.tar.gz", hash = "sha256:e644fdec12f7872f86c58ff790da456218b10f863970249516d60a5eaca77206"},
 ]
 pyjwt = [
-    {file = "PyJWT-1.7.1-py2.py3-none-any.whl", hash = "sha256:5c6eca3c2940464d106b99ba83b00c6add741c9becaec087fb7ccdefea71350e"},
-    {file = "PyJWT-1.7.1.tar.gz", hash = "sha256:8d59a976fb773f3e6a39c85636357c4f0e242707394cadadd9814f5cbaa20e96"},
+    {file = "PyJWT-2.3.0-py3-none-any.whl", hash = "sha256:e0c4bb8d9f0af0c7f5b1ec4c5036309617d03d56932877f2f7a0beeb5318322f"},
+    {file = "PyJWT-2.3.0.tar.gz", hash = "sha256:b888b4d56f06f6dcd777210c334e69c737be74755d3e5e9ee3fe67dc18a0ee41"},
 ]
 pyparsing = [
     {file = "pyparsing-3.0.6-py3-none-any.whl", hash = "sha256:04ff808a5b90911829c55c4e26f75fa5ca8a2f5f36aa3a51f68e27033341d3e4"},
@@ -1030,8 +1031,8 @@ simplejson = [
     {file = "simplejson-3.11.1.win32-py3.5.exe", hash = "sha256:c76d55d78dc8b06c96fd08c6cc5e2b0b650799627d3f9ca4ad23f40db72d5f6d"},
 ]
 singer-sdk = [
-    {file = "singer-sdk-0.4.6.tar.gz", hash = "sha256:a92eecabbdb22391e79aa11a2eb709abbaedd8a1db89cffe130d8716685c429a"},
-    {file = "singer_sdk-0.4.6-py3-none-any.whl", hash = "sha256:a5e34e3dfddb2a8704c3009fb2fddc5c1e3bde5eb366227c35ae09b4210a5d74"},
+    {file = "singer-sdk-0.4.7.tar.gz", hash = "sha256:acbe50809e2bb662763c42cc8ae50367f3053f3e482ba10e9cb91e0adf21ff27"},
+    {file = "singer_sdk-0.4.7-py3-none-any.whl", hash = "sha256:2c0879049b62aded80ca324d2c6ccc26e99f5cc6dae0de67cf5160efe4a8d1c2"},
 ]
 six = [
     {file = "six-1.16.0-py2.py3-none-any.whl", hash = "sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254"},
