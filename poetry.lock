@@ -157,6 +157,17 @@ optional = false
 python-versions = ">=3.5"
 
 [[package]]
+name = "exceptiongroup"
+version = "1.0.0rc8"
+description = "Backport of PEP 654 (exception groups)"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[package.extras]
+test = ["pytest (>=6)"]
+
+[[package]]
 name = "greenlet"
 version = "1.1.2"
 description = "Lightweight in-process concurrent programming"
@@ -491,7 +502,7 @@ use_chardet_on_py3 = ["chardet (>=3.0.2,<5)"]
 
 [[package]]
 name = "requests-cache"
-version = "0.9.4"
+version = "0.9.5"
 description = "A transparent persistent cache for the requests library"
 category = "main"
 optional = false
@@ -500,7 +511,8 @@ python-versions = ">=3.7,<4.0"
 [package.dependencies]
 appdirs = ">=1.4.4,<2.0.0"
 attrs = ">=21.2,<22.0"
-cattrs = ">=1.8,<2.0"
+cattrs = ">=1.8,<=22.2"
+exceptiongroup = {version = ">=1.0.0-rc.3", markers = "python_full_version >= \"3.10.0\" and python_full_version < \"4.0.0\""}
 requests = ">=2.22,<3.0"
 url-normalize = ">=1.4,<2.0"
 urllib3 = ">=1.25.5,<2.0.0"
@@ -671,7 +683,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytes
 [metadata]
 lock-version = "1.1"
 python-versions = "<3.11,>=3.7.1"
-content-hash = "7b2cec07e0bf6b9d24a35769e174d56059c3d95e4600bf6b5912f484fd8bf961"
+content-hash = "ba9f6576b30595f60bd9523ac47d52772094b208ae21c61382e51f5ff72b9b28"
 
 [metadata.files]
 appdirs = [
@@ -814,6 +826,10 @@ cryptography = [
 decorator = [
     {file = "decorator-5.1.0-py3-none-any.whl", hash = "sha256:7b12e7c3c6ab203a29e157335e9122cb03de9ab7264b137594103fd4a683b374"},
     {file = "decorator-5.1.0.tar.gz", hash = "sha256:e59913af105b9860aa2c8d3272d9de5a56a4e608db9a2f167a8480b323d529a7"},
+]
+exceptiongroup = [
+    {file = "exceptiongroup-1.0.0rc8-py3-none-any.whl", hash = "sha256:ab0a968e1ef769e55d9a596f4a89f7be9ffedbc9fdefdb77cc68cf5c33ce1035"},
+    {file = "exceptiongroup-1.0.0rc8.tar.gz", hash = "sha256:6990c24f06b8d33c8065cfe43e5e8a4bfa384e0358be036af9cc60b6321bd11a"},
 ]
 greenlet = [
     {file = "greenlet-1.1.2-cp27-cp27m-macosx_10_14_x86_64.whl", hash = "sha256:58df5c2a0e293bf665a51f8a100d3e9956febfbf1d9aaf8c0677cf70218910c6"},
@@ -1024,8 +1040,8 @@ requests = [
     {file = "requests-2.26.0.tar.gz", hash = "sha256:b8aa58f8cf793ffd8782d3d8cb19e66ef36f7aba4353eec859e74678b01b07a7"},
 ]
 requests-cache = [
-    {file = "requests-cache-0.9.4.tar.gz", hash = "sha256:04bb1212bbefba122080163530555f36e64fcd517ef8f90e289ef76f7ae055da"},
-    {file = "requests_cache-0.9.4-py3-none-any.whl", hash = "sha256:edc51d4ba3f1bcacf100aa6097d0c4ae4c787fe13dcc4b2d3a6ce3064482b072"},
+    {file = "requests-cache-0.9.5.tar.gz", hash = "sha256:bd67575f541f9c10f44f8b49d8d449fb55db8af2e27d93c56349f227b78e4b70"},
+    {file = "requests_cache-0.9.5-py3-none-any.whl", hash = "sha256:5343132acc8ca4d7810305aa1e8e46367e9c7c8379f7aea4e8c05f401499fc43"},
 ]
 simplejson = [
     {file = "simplejson-3.11.1-cp27-cp27m-win32.whl", hash = "sha256:38c2b563cd03363e7cb2bbba6c20ae4eaafd853a83954c8c8dd345ee391787bf"},
