@@ -2,22 +2,29 @@
 
 Singer Tap for Jotform.
 
-Built with the [Meltano SDK](https://sdk.meltano.com) for Singer Taps and Targets.
+Built with the [Meltano Singer SDK](https://sdk.meltano.com).
 
 ## Capabilities
 
-* `sync`
 * `catalog`
 * `state`
 * `discover`
+* `about`
+* `stream-maps`
+* `schema-flattening`
 
 ## Settings
 
-| Setting   | Required | Default | Description |
-|:----------|:--------:|:-------:|:------------|
-| `api_key` | True     | None    | Authentication key. See https://api.jotform.com/docs/#authentication |
-| `api_url` | False    | https://api.jotform.com | API Base URL |
-| `user_agent` | False    | tap-jotform/0.0.1 | User-Agent header |
+| Setting             | Required | Default | Description |
+|:--------------------|:--------:|:-------:|:------------|
+| api_key             | True     | None    | Authentication key. See https://api.jotform.com/docs/#authentication |
+| api_url             | False    | https://api.jotform.com | API Base URL |
+| user_agent          | False    | tap-jotform/0.0.1 | User-Agent header |
+| start_date          | False    | None    | Start date for data collection |
+| stream_maps         | False    | None    | Config object for stream maps capability. For more information check out [Stream Maps](https://sdk.meltano.com/en/latest/stream_maps.html). |
+| stream_map_config   | False    | None    | User-defined config values to be used within map expressions. |
+| flattening_enabled  | False    | None    | 'True' to enable schema flattening and automatically expand nested properties. |
+| flattening_max_depth| False    | None    | The max depth to flatten schemas. |
 
 A full list of supported settings and capabilities is available by running: `tap-jotform --about`
 
@@ -90,5 +97,5 @@ meltano elt tap-jotform target-jsonl
 
 ### SDK Dev Guide
 
-See the [dev guide](https://sdk.meltano.com/en/latest/dev_guide.html) for more instructions on how to use the SDK to 
+See the [dev guide](https://sdk.meltano.com/en/latest/dev_guide.html) for more instructions on how to use the SDK to
 develop your own taps and targets.

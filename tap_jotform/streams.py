@@ -1,8 +1,11 @@
 """Stream type classes for tap-jotform."""
 
-import json
-from typing import Dict, Optional
+from __future__ import annotations
 
+import json
+from typing import Generator
+
+import requests
 from singer_sdk import typing as th  # JSON Schema typing helpers
 
 from tap_jotform.client import JotformPaginatedStream, JotformStream
@@ -51,76 +54,71 @@ class FormsStream(JotformPaginatedStream):
         th.Property("archived", th.IntegerType),
     ).to_dict()
 
-    def get_child_context(self, record: dict, context: Optional[dict]) -> dict:
+    def get_child_context(self, record: dict, context: dict | None) -> dict:
+        """Return a context dictionary for child streams.
+
+        Args:
+            record: The record being processed.
+            context: The context dictionary for the parent stream.
+
+        Returns:
+            A context dictionary for child streams.
+        """
         return {"form_id": record["id"]}
 
 
-class QuestionsForms(JotformStream):
-    "Questions stream."
+class QuestionsStream(JotformStream):
+    """Questions stream."""
 
     name = "questions"
     path = "/form/{form_id}/questions"
     primary_keys = ["form_id", "qid"]
     replication_key = None
-    records_jsonpath = "$.content.*"
     parent_stream_type = FormsStream
-
-    INTEGER_FIELDS = [
-        "order",
-        "cols",
-        "rows",
-        "maxsize",
-        "size",
-        "scaleFrom",
-        "stars",
-    ]
 
     schema = th.PropertiesList(
         th.Property("qid", th.StringType, required=True, description="Question ID"),
-        th.Property("form_id", th.StringType),
-        th.Property("name", th.StringType),
-        th.Property("hint", th.StringType),
-        th.Property("description", th.StringType),
-        th.Property("order", th.IntegerType),
-        th.Property("text", th.StringType, description="Question label"),
+        th.Property("form_id", th.StringType, required=True, description="Form ID"),
         th.Property(
             "type",
             th.StringType,
             required=True,
             description="Question type such as textbox or dropdown",
         ),
-        th.Property("required", th.StringType),
-        th.Property("readonly", th.StringType),
-        th.Property("defaultValue", th.StringType),
-        th.Property("autoFixed", th.StringType),
-        th.Property("cols", th.IntegerType),
-        th.Property("rows", th.IntegerType),
-        th.Property("entryLimit", th.StringType),
-        th.Property("entryLimitMin", th.StringType),
-        th.Property("maxsize", th.IntegerType),
-        th.Property("size", th.IntegerType),
-        th.Property("mde", th.StringType),
-        th.Property("wysiwyg", th.StringType),
-        th.Property("hidden", th.StringType),
-        th.Property("inputTextMask", th.StringType),
-        th.Property("suffix", th.StringType),
-        th.Property("validation", th.StringType),
-        th.Property("labelAlign", th.StringType),
-        th.Property("buttonAlign", th.StringType),
-        th.Property("buttonStyle", th.StringType),
-        th.Property("clear", th.StringType),
-        th.Property("clearText", th.StringType),
-        th.Property("encryptIcon", th.StringType),
-        th.Property("print", th.StringType),
-        th.Property("printText", th.StringType),
-        th.Property("scaleFrom", th.IntegerType),
-        th.Property("stars", th.IntegerType),
-        th.Property("starStyle", th.StringType),
-        th.Property("prettyFormat", th.StringType),
-        th.Property("subLabel", th.StringType),
-        th.Property("toText", th.StringType),
-        th.Property("fromText", th.StringType),
+        th.Property(
+            "order",
+            th.IntegerType,
+            required=True,
+            description="Question order in the form",
+        ),
+        th.Property(
+            "question",
+            th.ObjectType(),
+            required=True,
+            description="Question data",
+        ),
     ).to_dict()
+
+    def parse_response(
+        self,
+        response: requests.Response,
+    ) -> Generator[dict, None, None]:
+        """Parse the response and return an iterator of result rows.
+
+        Args:
+            response: The response object.
+
+        Yields:
+            An iterator of parsed records.
+        """
+        for qid, question in response.json()["content"].items():
+
+            yield {
+                "qid": qid,
+                "type": question["type"],
+                "order": question["order"],
+                "question": question,
+            }
 
 
 class SubmissionsStream(JotformPaginatedStream):
@@ -159,15 +157,72 @@ class SubmissionsStream(JotformPaginatedStream):
         ),
     ).to_dict()
 
-    def post_process(self, row: dict, context: Optional[dict] = None) -> dict:
+    def post_process(self, row: dict, context: dict | None = None) -> dict:
+        """Post-process a row.
+
+        Args:
+            row: The row of data.
+            context: The context object.
+
+        Returns:
+            The processed row of data.
+        """
         row = super().post_process(row, context)
 
         answers_list = []
-        answers: Dict[str, Dict[str, str]] = row.pop("answers", {})
+        answers: dict[str, dict[str, str | None]] = row.pop("answers", {})
         for qid, entry in answers.items():
             answer = entry.get("answer")
             entry["answer"] = json.dumps(answer) if answer is not None else None
-            answers_list.append({"qid": qid, **entry})
+            value: dict[str, str | None] = {"qid": qid, **entry}
+            answers_list.append(value)
         row["answers"] = answers_list
 
+        return row
+
+
+class ReportsStream(JotformStream):
+    """Reports stream."""
+
+    name = "reports"
+    path = "/user/reports"
+
+    schema = th.PropertiesList(
+        th.Property("id", th.StringType, description="The Report ID"),
+        th.Property("form_id", th.StringType),
+        th.Property("title", th.StringType),
+        CREATED_AT,
+        UPDATED_AT,
+        th.Property("fields", th.ArrayType(th.StringType)),
+        th.Property(
+            "list_type",
+            th.StringType,
+            allowed_values=[
+                "excel",
+                "csv",
+                "grid",
+                "table",
+                "calendar",
+                "rss",
+                "visual",
+            ],
+        ),
+        th.Property("status", th.StringType, allowed_values=["ENABLED", "DELETED"]),
+        th.Property("url", th.StringType),
+        th.Property("isProtected", th.BooleanType),
+    ).to_dict()
+
+    def post_process(self, row: dict, context: dict | None = None) -> dict:
+        """Post-process a row of data.
+
+        Args:
+            row: The row of data.
+            context: The context object.
+
+        Returns:
+            The processed row of data.
+        """
+        row = super().post_process(row, context)
+        fields = row.get("fields") or ""
+        row["fields"] = fields.split(",")
         return row

@@ -1,0 +1,45 @@
+version: 1
+send_anonymous_usage_stats: false
+default_environment: dev
+plugins:
+  extractors:
+  - name: tap-jotform
+    namespace: tap_jotform
+    label: Jotform
+    description: Full-featured online form builder that makes it easy to create robust
+      forms and collect important data.
+    repo: https://github.com/edgarrmondragon/tap-jotform
+    pip_url: -e .
+    capabilities:
+    - state
+    - catalog
+    - discover
+    settings:
+    - name: api_key
+      kind: password
+      label: API Key
+      documentation: https://api.jotform.com/docs/#authentication
+      description: API Key for Jotform
+    - name: api_url
+      kind: string
+      value: https://api.jotform.com
+      label: API URL
+      description: Override this value for Jotform Enterprise subdomains or EU customers
+    - name: user_agent
+      kind: string
+      label: User Agent
+      description: User agent to use for requests
+    - name: start_date
+      kind: date_iso8601
+      label: Start Date
+      description: Start date for collecting data
+  loaders:
+  - name: target-duckdb
+    variant: jwills
+    pip_url: target-duckdb~=0.4
+    config:
+      filepath: output/wh.db
+      default_target_schema: test
+environments:
+- name: dev
+project_id: 2af3fc35-a5a2-41d1-b0b5-082ab602a78b
