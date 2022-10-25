@@ -1,0 +1,1 @@
+"""Singer Tap for Jotform."""
