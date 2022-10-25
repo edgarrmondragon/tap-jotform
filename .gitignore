@@ -1,5 +1,10 @@
+# Meltano
+.meltano/
+
 # Output files
 *.jsonl
+*.sqlite
+*.duckdb
 
 # Secrets and internal config files
 **/.secrets/*

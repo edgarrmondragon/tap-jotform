@@ -1,29 +1,12 @@
 """Jotform tap class."""
 
-from typing import List
+from __future__ import annotations
 
-import structlog
 from singer_sdk import Stream, Tap
 from singer_sdk import typing as th
 from singer_sdk.helpers._classproperty import classproperty
-from structlog.contextvars import bind_contextvars, merge_contextvars
 
-from tap_jotform.streams import FormsStream, QuestionsForms, SubmissionsStream
-
-STREAM_TYPES = [
-    FormsStream,
-    QuestionsForms,
-    SubmissionsStream,
-]
-
-structlog.configure(
-    processors=[
-        merge_contextvars,
-        # structlog.processors.JSONRenderer(),
-        structlog.dev.ConsoleRenderer(colors=True),
-    ],
-    logger_factory=structlog.stdlib.LoggerFactory(),
-)
+from tap_jotform import streams
 
 
 class TapJotform(Tap):
@@ -31,13 +14,21 @@ class TapJotform(Tap):
 
     name = "tap-jotform"
 
-    @classproperty
-    def logger(cls):
-        bind_contextvars(tap=cls.name, version=cls.plugin_version)
-        return structlog.get_logger()
+    def get_user_agent(self) -> str:
+        """Return a user agent string.
+
+        Returns:
+            A user agent string.
+        """
+        return f"{self.name}/{self.plugin_version}"
 
     @classproperty
-    def config_jsonschema(cls):
+    def config_jsonschema(cls) -> dict:  # type: ignore
+        """Return the JSON schema definition for the config.
+
+        Returns:
+            The JSON schema definition for the config.
+        """
         return th.PropertiesList(
             th.Property(
                 "api_key",
@@ -45,8 +36,8 @@ class TapJotform(Tap):
                 required=True,
                 description=(
                     "Authentication key. "
-                    "See https://api.jotform.com/docs/#authentication")
-                ,
+                    "See https://api.jotform.com/docs/#authentication"
+                ),
             ),
             th.Property(
                 "api_url",
@@ -61,8 +52,23 @@ class TapJotform(Tap):
                 default=f"{cls.name}/{cls.plugin_version}",
                 description="User-Agent header",
             ),
+            th.Property(
+                "start_date",
+                th.DateTimeType,
+                required=False,
+                description="Start date for data collection",
+            ),
         ).to_dict()
 
-    def discover_streams(self) -> List[Stream]:
-        """Return a list of discovered streams."""
-        return [stream_class(tap=self) for stream_class in STREAM_TYPES]
+    def discover_streams(self) -> list[Stream]:
+        """Return a list of discovered streams.
+
+        Returns:
+            A list of discovered streams.
+        """
+        return [
+            streams.FormsStream(self),
+            streams.QuestionsStream(self),
+            streams.SubmissionsStream(self),
+            streams.ReportsStream(self),
+        ]
