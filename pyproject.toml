@@ -2,12 +2,17 @@
 name = "tap-jotform"
 version = "0.0.0"
 description = "Singer tap for Jotform, built with the Meltano SDK for Singer Taps."
+license = "Apache-2.0"
 authors = ["Edgar Ramírez-Mondragón <edgarrm358@gmail.com>"]
+maintainers = ["Edgar Ramírez-Mondragón <edgarrm358@gmail.com>"]
+readme = "README.md"
+homepage = "https://github.com/edgarrmondragon/tap-jotform"
+repository = "https://github.com/edgarrmondragon/tap-jotform"
+documentation = "https://github.com/edgarrmondragon/tap-jotform/#readme"
 keywords = [
     "ELT",
     "Jotform",
 ]
-license = "Apache 2.0"
 
 [tool.poetry.dependencies]
 python = "<3.11,>=3.7.1"
