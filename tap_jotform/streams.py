@@ -210,6 +210,11 @@ class ReportsStream(JotformStream):
         th.Property("status", th.StringType, allowed_values=["ENABLED", "DELETED"]),
         th.Property("url", th.StringType),
         th.Property("isProtected", th.BooleanType),
+        th.Property("type", th.StringType),
+        th.Property("form_title", th.StringType),
+        th.Property("form_count", th.IntegerType),
+        th.Property("form_url", th.StringType),
+        th.Property("last_submission", th.DateTimeType),
     ).to_dict()
 
     def post_process(self, row: dict, context: dict | None = None) -> dict:
