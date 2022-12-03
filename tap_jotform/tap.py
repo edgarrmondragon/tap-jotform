@@ -58,6 +58,30 @@ class TapJotform(Tap):
                 required=False,
                 description="Start date for data collection",
             ),
+            th.Property(
+                "requests_cache",
+                th.ObjectType(
+                    th.Property(
+                        "enabled",
+                        th.BooleanType,
+                        default=False,
+                        description="Enable requests cache",
+                    ),
+                    th.Property(
+                        "config",
+                        th.ObjectType(
+                            th.Property(
+                                "expire_after",
+                                th.IntegerType,
+                                description="Cache expiration time in seconds",
+                            ),
+                        ),
+                        description="Requests cache configuration",
+                        default={},
+                    ),
+                ),
+                description="Cache configuration for HTTP requests",
+            ),
         ).to_dict()
 
     def discover_streams(self) -> list[Stream]:

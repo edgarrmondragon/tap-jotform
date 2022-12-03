@@ -35,6 +35,17 @@ plugins:
       kind: date_iso8601
       label: Start Date
       description: Start date for collecting data
+    - name: requests_cache.enabled
+      kind: boolean
+      label: Requests Cache Enabled
+      description: Enable requests cache
+    - name: requests_cache.config.expire_after
+      kind: integer
+      label: Requests Cache Expire After
+      description: Requests cache expire after
+    config:
+      requests_cache.enabled: true
+      requests_cache.config.expire_after: 3600
   loaders:
   - name: target-duckdb
     variant: jwills

@@ -10,8 +10,6 @@ from singer_sdk.authenticators import APIKeyAuthenticator
 from singer_sdk.pagination import BaseOffsetPaginator
 from singer_sdk.streams import RESTStream
 
-requests_cache.install_cache("requests_cache")
-
 
 class JotformPaginator(BaseOffsetPaginator):
     """Jotform pagination class."""
@@ -110,6 +108,22 @@ class JotformStream(RESTStream):
             extra={"limit_left": response.json()["limit-left"]},
         )
         yield from super().parse_response(response)
+
+    @property
+    def requests_session(self) -> requests.Session:
+        """Return a new requests session object.
+
+        Returns:
+            A new requests session object.
+        """
+        if (
+            self.config.get("requests_cache")
+            and self.config["requests_cache"]["enabled"]
+        ):
+            self._requests_session = requests_cache.CachedSession(
+                **self.config["requests_cache"]["config"]
+            )
+        return super().requests_session
 
 
 class JotformPaginatedStream(JotformStream):
