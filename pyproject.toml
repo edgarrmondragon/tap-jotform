@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "tap-jotform"
 version = "0.0.0"
-description = "`tap-jotform` is a Singer tap for Jotform, built with the Meltano SDK for Singer Taps."
+description = "Singer tap for Jotform, built with the Meltano SDK for Singer Taps."
 authors = ["Edgar Ramírez-Mondragón <edgarrm358@gmail.com>"]
 keywords = [
     "ELT",
