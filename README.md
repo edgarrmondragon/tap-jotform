@@ -2,7 +2,7 @@
 
 # tap-jotform
 
-<div
+<div>
   <a href="https://results.pre-commit.ci/latest/github/edgarrmondragon/tap-jotform/main">
     <img alt="pre-commit.ci status" src="https://results.pre-commit.ci/badge/github/edgarrmondragon/tap-jotform/main.svg"/>
   </a>
