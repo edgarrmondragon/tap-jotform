@@ -1,8 +1,22 @@
-# `tap-jotform`
+<div align="center">
 
-Singer Tap for Jotform.
+# tap-jotform
 
-Built with the [Meltano Singer SDK](https://sdk.meltano.com).
+<div
+  <a href="https://results.pre-commit.ci/latest/github/edgarrmondragon/tap-jotform/main">
+    <img alt="pre-commit.ci status" src="https://results.pre-commit.ci/badge/github/edgarrmondragon/tap-jotform/main.svg"/>
+  </a>
+  <a href="https://github.com/edgarrmondragon/tap-jotform/blob/main/LICENSE">
+    <img alt="License" src="https://img.shields.io/github/license/edgarrmondragon/tap-jotform"/>
+  </a>
+  <a href="https://tap-jotform.readthedocs.io/en/latest/?badge=latest">
+    <img alt="Documentation Status" src="https://readthedocs.org/projects/tap-jotform/badge/?version=latest"/>
+  </a>
+</div>
+
+Singer Tap for Jotform. Built with the [Meltano Singer SDK](https://sdk.meltano.com).
+
+</div>
 
 ## Capabilities
 
