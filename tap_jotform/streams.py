@@ -3,7 +3,8 @@
 from __future__ import annotations
 
 import json
-from typing import Generator
+from datetime import date
+from typing import Any, Generator
 
 import requests
 from singer_sdk import typing as th  # JSON Schema typing helpers
@@ -231,3 +232,50 @@ class ReportsStream(JotformStream):
         fields = row.get("fields") or ""
         row["fields"] = fields.split(",")
         return row
+
+
+class UserHistory(JotformStream):
+    """User History stream."""
+
+    name = "user_history"
+    path = "/user/history"
+
+    schema = th.PropertiesList(
+        th.Property(
+            "type",
+            th.StringType,
+            allowed_values=[
+                "userCreation",
+                "userLogin",
+                "formCreation",
+                "formUpdate",
+                "formDelete",
+                "formPurge",
+            ],
+        ),
+        th.Property("username", th.StringType),
+        th.Property("ip", th.StringType),
+        th.Property("server", th.StringType),
+        th.Property("timestamp", th.IntegerType),
+        th.Property("email", th.EmailType),
+        th.Property("parent", th.StringType),
+        th.Property("subuser", th.StringType),
+    ).to_dict()
+
+    def get_url_params(
+        self, context: dict | None, next_page_token: tuple[date, date] | None
+    ) -> dict[str, Any]:
+        """Get the URL parameters.
+
+        Args:
+            context: The context object.
+            next_page_token: The next page token.
+
+        Returns:
+            The URL parameters.
+        """
+        params = super().get_url_params(context, next_page_token)
+        params["action"] = "all"
+        params["date"] = "all"
+        params["sortBy"] = "ASC"
+        return params
