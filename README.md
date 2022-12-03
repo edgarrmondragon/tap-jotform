@@ -32,7 +32,7 @@ Singer Tap for Jotform. Built with the [Meltano Singer SDK](https://sdk.meltano.
 | api_url             | False    | https://api.jotform.com | API Base URL |
 | user_agent          | False    | tap-jotform/0.0.1 | User-Agent header |
 | start_date          | False    | None    | Start date for data collection |
-| requests_cache_config| False    | None    | Cache configuration for HTTP requests |
+| requests_cache | False    | None    | Cache configuration for HTTP requests |
 | stream_maps         | False    | None    | Config object for stream maps capability. For more information check out [Stream Maps](https://sdk.meltano.com/en/latest/stream_maps.html). |
 | stream_map_config   | False    | None    | User-defined config values to be used within map expressions. |
 | flattening_enabled  | False    | None    | 'True' to enable schema flattening and automatically expand nested properties. |
