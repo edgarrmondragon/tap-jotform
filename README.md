@@ -9,9 +9,6 @@
   <a href="https://github.com/edgarrmondragon/tap-jotform/blob/main/LICENSE">
     <img alt="License" src="https://img.shields.io/github/license/edgarrmondragon/tap-jotform"/>
   </a>
-  <a href="https://tap-jotform.readthedocs.io/en/latest/?badge=latest">
-    <img alt="Documentation Status" src="https://readthedocs.org/projects/tap-jotform/badge/?version=latest"/>
-  </a>
 </div>
 
 Singer Tap for Jotform. Built with the [Meltano Singer SDK](https://sdk.meltano.com).
