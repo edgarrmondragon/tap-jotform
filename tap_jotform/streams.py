@@ -13,7 +13,6 @@ from tap_jotform.client import JotformPaginatedStream, JotformStream
 
 CREATED_AT = th.Property("created_at", th.DateTimeType)
 UPDATED_AT = th.Property("updated_at", th.DateTimeType)
-STATUS = th.Property("status", th.StringType)
 
 
 class FormsStream(JotformPaginatedStream):
@@ -36,7 +35,11 @@ class FormsStream(JotformPaginatedStream):
         th.Property("title", th.StringType),
         th.Property("height", th.IntegerType),
         th.Property("url", th.StringType),
-        STATUS,
+        th.Property(
+            "status",
+            th.StringType,
+            allowed_values=["ENABLED", "DISABLED", "DELETED"],
+        ),
         CREATED_AT,
         UPDATED_AT,
         th.Property("last_submission", th.DateTimeType),
@@ -50,7 +53,7 @@ class FormsStream(JotformPaginatedStream):
             th.IntegerType,
             description="Total number of submissions",
         ),
-        th.Property("type", th.StringType),
+        th.Property("type", th.StringType, allowed_values=["LEGACY", "CARD"]),
         th.Property("favorite", th.IntegerType),
         th.Property("archived", th.IntegerType),
     ).to_dict()
@@ -141,7 +144,11 @@ class SubmissionsStream(JotformPaginatedStream):
         th.Property("notes", th.StringType),
         CREATED_AT,
         UPDATED_AT,
-        STATUS,
+        th.Property(
+            "status",
+            th.StringType,
+            allowed_values=["ACTIVE", "OVERQUOTA"],
+        ),
         th.Property(
             "new",
             th.IntegerType,
