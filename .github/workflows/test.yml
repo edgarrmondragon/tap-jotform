@@ -36,7 +36,9 @@ jobs:
     - name: Install Poetry
       run: |
         pipx install poetry
+        pipx inject poetry poetry-dynamic-versioning[plugin]
         poetry --version
+        poetry self show plugins
 
     - name: Install Nox
       run: |
