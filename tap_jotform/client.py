@@ -36,7 +36,7 @@ class JotformStream(RESTStream):
     """Jotform stream class."""
 
     page_size = 100
-    primary_keys = ["id"]
+    primary_keys: list[str] | None = ["id"]
     records_jsonpath = "$.content[*]"
 
     INTEGER_FIELDS: list[str] = []
