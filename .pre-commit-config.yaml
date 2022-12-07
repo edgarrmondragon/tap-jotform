@@ -44,3 +44,4 @@ repos:
     - darglint
     - flake8-annotations
     - flake8-docstrings
+    exclude: "noxfile\\.py"
