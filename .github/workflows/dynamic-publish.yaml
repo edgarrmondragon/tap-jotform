@@ -1,9 +1,9 @@
 name: Publish with Dynamic Versioning
 
 on:
-  workflow_dispatch: {}
-  release:
-    types: [published]
+  push:
+    tags:
+    - v**
 
 jobs:
   publish:
@@ -37,7 +37,7 @@ jobs:
       - name: Build
         run: poetry build
 
-      - name: Upload wheel to release
+      - name: Upload wheel to ref
         uses: svenstaro/upload-release-action@v2
         with:
           file: dist/*.whl
