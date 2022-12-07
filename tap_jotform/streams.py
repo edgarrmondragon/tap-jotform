@@ -246,6 +246,7 @@ class UserHistory(JotformStream):
 
     name = "user_history"
     path = "/user/history"
+    primary_keys = None
 
     schema = th.PropertiesList(
         th.Property(
