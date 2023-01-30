@@ -16,7 +16,7 @@ keywords = [
 
 [tool.poetry.dependencies]
 python = "<3.12,>=3.7.1"
-singer-sdk = "==0.18.0"
+singer-sdk = "==0.19.0"
 requests-cache = "==0.9.8"
 structlog = "==22.3.0"
 colorama = "==0.4.6"
