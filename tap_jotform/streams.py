@@ -116,7 +116,6 @@ class QuestionsStream(JotformStream):
             An iterator of parsed records.
         """
         for qid, question in response.json()["content"].items():
-
             yield {
                 "qid": qid,
                 "type": question["type"],
