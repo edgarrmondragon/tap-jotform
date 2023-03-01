@@ -1,0 +1,18 @@
+version: 1
+disable_existing_loggers: false
+formatters:
+  metrics:
+    format: "{asctime} {message}"
+    style: "{"
+handlers:
+  metrics:
+    class: logging.FileHandler
+    formatter: metrics
+    filename: metrics.log
+loggers:
+  urllib3:
+    level: DEBUG
+  singer_sdk.metrics:
+    level: INFO
+    handlers: [ metrics ]
+    propagate: no

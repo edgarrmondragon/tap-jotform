@@ -3,13 +3,16 @@
 from __future__ import annotations
 
 import json
-from datetime import date
-from typing import Any, Generator
+import typing as t
 
-import requests
 from singer_sdk import typing as th  # JSON Schema typing helpers
 
 from tap_jotform.client import JotformPaginatedStream, JotformStream
+
+if t.TYPE_CHECKING:
+    import datetime
+
+    import requests
 
 CREATED_AT = th.Property("created_at", th.DateTimeType)
 UPDATED_AT = th.Property("updated_at", th.DateTimeType)
@@ -58,7 +61,11 @@ class FormsStream(JotformPaginatedStream):
         th.Property("archived", th.IntegerType),
     ).to_dict()
 
-    def get_child_context(self, record: dict, context: dict | None) -> dict:
+    def get_child_context(
+        self,
+        record: dict,
+        context: dict | None,  # noqa: ARG002
+    ) -> dict:
         """Return a context dictionary for child streams.
 
         Args:
@@ -106,7 +113,7 @@ class QuestionsStream(JotformStream):
     def parse_response(
         self,
         response: requests.Response,
-    ) -> Generator[dict, None, None]:
+    ) -> t.Generator[dict, None, None]:
         """Parse the response and return an iterator of result rows.
 
         Args:
@@ -159,7 +166,7 @@ class SubmissionsStream(JotformPaginatedStream):
                 th.ObjectType(
                     th.Property("qid", th.StringType, required=True),
                     th.Property("answer", th.StringType),
-                )
+                ),
             ),
         ),
     ).to_dict()
@@ -245,7 +252,7 @@ class UserHistory(JotformStream):
 
     name = "user_history"
     path = "/user/history"
-    primary_keys = None
+    primary_keys = ["username", "timestamp", "type"]
 
     schema = th.PropertiesList(
         th.Property(
@@ -270,8 +277,10 @@ class UserHistory(JotformStream):
     ).to_dict()
 
     def get_url_params(
-        self, context: dict | None, next_page_token: tuple[date, date] | None
-    ) -> dict[str, Any]:
+        self,
+        context: dict | None,
+        next_page_token: tuple[datetime.date, datetime.date] | None,
+    ) -> dict[str, t.Any]:
         """Get the URL parameters.
 
         Args:

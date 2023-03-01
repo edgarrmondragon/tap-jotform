@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Generator
+import typing as t
 
 import requests
 import requests_cache
@@ -76,7 +76,11 @@ class JotformStream(RESTStream):
             headers["User-Agent"] = self.config.get("user_agent")
         return headers
 
-    def post_process(self, row: dict, context: dict | None = None) -> dict:
+    def post_process(
+        self,
+        row: dict,
+        context: dict | None = None,  # noqa: ARG002
+    ) -> dict:
         """Post-process a record.
 
         Args:
@@ -94,7 +98,7 @@ class JotformStream(RESTStream):
     def parse_response(
         self,
         response: requests.Response,
-    ) -> Generator[dict, None, None]:
+    ) -> t.Generator[dict, None, None]:
         """Parse the response and return an iterator of result rows.
 
         Args:
@@ -110,20 +114,23 @@ class JotformStream(RESTStream):
         yield from super().parse_response(response)
 
     @property
-    def requests_session(self) -> requests.Session:
+    def requests_session(self) -> requests_cache.CachedSession | requests.Session:
         """Return a new requests session object.
 
         Returns:
             A new requests session object.
         """
-        if (
-            self.config.get("requests_cache")
-            and self.config["requests_cache"]["enabled"]
-        ):
-            self._requests_session = requests_cache.CachedSession(
-                **self.config["requests_cache"]["config"]
-            )
-        return super().requests_session
+        if self._requests_session is None:  # type: ignore[has-type]
+            if (
+                self.config.get("requests_cache")
+                and self.config["requests_cache"]["enabled"]
+            ):
+                self._requests_session = requests_cache.CachedSession(
+                    **self.config["requests_cache"]["config"],
+                )
+            else:
+                self._requests_session = requests.Session()
+        return self._requests_session
 
 
 class JotformPaginatedStream(JotformStream):
@@ -143,7 +150,7 @@ class JotformPaginatedStream(JotformStream):
         self,
         context: dict | None,
         next_page_token: int | None,
-    ) -> dict[str, Any]:
+    ) -> dict[str, t.Any]:
         """Return a dictionary of values to be used in URL parameterization.
 
         Args:
@@ -153,7 +160,7 @@ class JotformPaginatedStream(JotformStream):
         Returns:
             A dictionary of values to be used in URL parameterization.
         """
-        params: dict[str, Any] = {"limit": self.page_size}
+        params: dict[str, t.Any] = {"limit": self.page_size}
 
         starting_value = self.get_starting_timestamp(context)
         if starting_value:
