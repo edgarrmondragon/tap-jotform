@@ -1,6 +1,8 @@
 version: 1
 send_anonymous_usage_stats: false
 default_environment: dev
+env:
+  SINGER_SDK_LOG_CONFIG: logging.jotform.yaml
 plugins:
   extractors:
   - name: tap-jotform
