@@ -24,7 +24,7 @@ importlib-metadata = {version = "<5.0.0", python = "<3.8"}
 python = "<3.12,>=3.7.1"
 requests-cache = "==1.0.1"
 singer-sdk = "==0.23.0"
-structlog = "==22.3.0"
+structlog = "==23.1.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.2.1"
