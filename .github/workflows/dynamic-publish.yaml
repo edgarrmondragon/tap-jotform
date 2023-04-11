@@ -5,6 +5,7 @@ on:
     types: [published]
 
 permissions:
+  contents: write
   id-token: write
 
 jobs:
