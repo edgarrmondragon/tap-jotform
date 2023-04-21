@@ -98,7 +98,7 @@ class QuestionsStream(JotformStream):
         ),
         th.Property(
             "order",
-            th.IntegerType,
+            th.StringType,
             required=True,
             description="Question order in the form",
         ),
