@@ -81,6 +81,8 @@ class FormsStream(JotformPaginatedStream):
 class QuestionsStream(JotformStream):
     """Questions stream."""
 
+    INTEGER_FIELDS = ["order"]
+
     name = "questions"
     path = "/form/{form_id}/questions"
     primary_keys = ["form_id", "qid"]
