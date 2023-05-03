@@ -280,9 +280,9 @@ class UserHistory(JotformStream):
 
     def get_url_params(
         self,
-        context: dict | None,
-        next_page_token: tuple[datetime.date, datetime.date] | None,
-    ) -> dict[str, t.Any]:
+        context: dict | None,  # noqa: ARG002
+        next_page_token: tuple[datetime.date, datetime.date] | None,  # noqa: ARG002
+    ) -> dict[str, t.Any] | str:
         """Get the URL parameters.
 
         Args:
@@ -292,8 +292,8 @@ class UserHistory(JotformStream):
         Returns:
             The URL parameters.
         """
-        params = super().get_url_params(context, next_page_token)
-        params["action"] = "all"
-        params["date"] = "all"
-        params["sortBy"] = "ASC"
-        return params
+        return {
+            "action": "all",
+            "date": "all",
+            "sortBy": "ASC",
+        }
