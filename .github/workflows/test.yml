@@ -1,6 +1,26 @@
 name: Test tap-jotform
 
-on: [push]
+on:
+  push:
+    branches: [main]
+    paths:
+      - tap_jotform/**
+      - tests/**
+      - noxfile.py
+      - poetry.lock
+      - pyproject.toml
+      - .github/workflows/test.yml
+      - .github/workflows/resources/constraints.txt
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - tap_jotform/**
+      - tests/**
+      - noxfile.py
+      - poetry.lock
+      - pyproject.toml
+      - .github/workflows/test.yml
+      - .github/workflows/resources/constraints.txt
 
 jobs:
   tests:
