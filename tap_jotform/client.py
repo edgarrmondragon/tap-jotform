@@ -26,20 +26,17 @@ class JotformPaginator(BaseOffsetPaginator):
         result_set = response.json()["resultSet"]
         count = int(result_set["count"])
 
-        if count == self._page_size:
-            return True
-
-        return False
+        return count == self._page_size
 
 
 class JotformStream(RESTStream):
     """Jotform stream class."""
 
     page_size = 100
-    primary_keys: list[str] | None = ["id"]
+    primary_keys: tuple[str, ...] = ("id",)  # type: ignore[assignment]
     records_jsonpath = "$.content[*]"
 
-    INTEGER_FIELDS: list[str] = []
+    INTEGER_FIELDS: tuple[str, ...] = ()
 
     @property
     def url_base(self) -> str:
