@@ -24,13 +24,13 @@ class FormsStream(JotformPaginatedStream):
     name = "forms"
     path = "/user/forms"
 
-    INTEGER_FIELDS = [
+    INTEGER_FIELDS = (
         "height",
         "new",
         "count",
         "favorite",
         "archived",
-    ]
+    )
 
     schema = th.PropertiesList(
         th.Property("id", th.StringType, description="The Form ID"),
@@ -81,11 +81,11 @@ class FormsStream(JotformPaginatedStream):
 class QuestionsStream(JotformStream):
     """Questions stream."""
 
-    INTEGER_FIELDS = ["order"]
+    INTEGER_FIELDS = ("order",)
 
     name = "questions"
     path = "/form/{form_id}/questions"
-    primary_keys = ["form_id", "qid"]
+    primary_keys = ("form_id", "qid")
     replication_key = None
     parent_stream_type = FormsStream
 
@@ -139,10 +139,10 @@ class SubmissionsStream(JotformPaginatedStream):
     name = "submissions"
     path = "/user/submissions"
 
-    INTEGER_FIELDS = [
+    INTEGER_FIELDS = (
         "flag",
         "new",
-    ]
+    )
 
     schema = th.PropertiesList(
         th.Property("id", th.StringType, description="The Submission ID"),
@@ -254,7 +254,7 @@ class UserHistory(JotformStream):
 
     name = "user_history"
     path = "/user/history"
-    primary_keys = ["username", "timestamp", "type"]
+    primary_keys = ("username", "timestamp", "type")
 
     schema = th.PropertiesList(
         th.Property(
