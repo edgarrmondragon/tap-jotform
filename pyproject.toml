@@ -19,12 +19,12 @@ documentation = "https://github.com/edgarrmondragon/tap-jotform/#readme"
 keywords = ["ELT", "Jotform"]
 
 [tool.poetry.dependencies]
-colorama = "==0.4.6"
+colorama = "==0.4.*"
 importlib-metadata = {version = "<5.0.0", python = "<3.8"}
 python = "<3.12,>=3.7.1"
-requests-cache = "==1.1.0"
-singer-sdk = "==0.28.0"
-structlog = "==23.1.0"
+requests-cache = "==1.1.*"
+singer-sdk = "==0.28.*"
+structlog = "==23.1.*"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.2.1"
