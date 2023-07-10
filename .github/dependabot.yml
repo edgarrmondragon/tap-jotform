@@ -13,6 +13,9 @@ updates:
       timezone: "America/Mexico_City"
     reviewers:
       - "edgarrmondragon"
+    commit-message:
+      prefix: "feat(deps): "
+      prefix-development: "chore(deps-dev): "
   - package-ecosystem: pip
     directory: "/.github/workflows"
     schedule:
@@ -21,6 +24,8 @@ updates:
       timezone: "America/Mexico_City"
     reviewers:
       - "edgarrmondragon"
+    commit-message:
+      prefix: "ci: "
   - package-ecosystem: github-actions
     directory: "/"
     schedule:
@@ -29,3 +34,5 @@ updates:
       timezone: "America/Mexico_City"
     reviewers:
       - "edgarrmondragon"
+    commit-message:
+      prefix: "ci: "
