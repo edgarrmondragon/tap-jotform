@@ -1,13 +1,34 @@
 name: Test tap-jotform
 
-on: [push]
+on:
+  push:
+    branches: [main]
+    paths:
+      - tap_jotform/**
+      - tests/**
+      - noxfile.py
+      - poetry.lock
+      - pyproject.toml
+      - .github/workflows/test.yml
+      - .github/workflows/constraints.txt
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - tap_jotform/**
+      - tests/**
+      - noxfile.py
+      - poetry.lock
+      - pyproject.toml
+      - .github/workflows/test.yml
+      - .github/workflows/constraints.txt
 
 jobs:
   tests:
     runs-on: ubuntu-latest
     env:
       PIP_CONSTRAINT: .github/workflows/constraints.txt
-      NOXSESSION: ${{ matrix.session }}-${{ matrix.python-version }}
+      NOXSESSION: ${{ matrix.session }}
+      NOXPYTHON: ${{ matrix.python-version }}
       FORCE_COLOR: "1"
     strategy:
       matrix:
@@ -21,12 +42,12 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3.5.2
+      uses: actions/checkout@v3.5.3
       with:
         fetch-depth: 0
 
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v4.6.0
+      uses: actions/setup-python@v4.7.0
       with:
         python-version: ${{ matrix.python-version }}
 

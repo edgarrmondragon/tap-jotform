@@ -24,13 +24,13 @@ class FormsStream(JotformPaginatedStream):
     name = "forms"
     path = "/user/forms"
 
-    INTEGER_FIELDS = [
+    INTEGER_FIELDS = (
         "height",
         "new",
         "count",
         "favorite",
         "archived",
-    ]
+    )
 
     schema = th.PropertiesList(
         th.Property("id", th.StringType, description="The Form ID"),
@@ -81,11 +81,11 @@ class FormsStream(JotformPaginatedStream):
 class QuestionsStream(JotformStream):
     """Questions stream."""
 
-    INTEGER_FIELDS = ["order"]
+    INTEGER_FIELDS = ("order",)
 
     name = "questions"
     path = "/form/{form_id}/questions"
-    primary_keys = ["form_id", "qid"]
+    primary_keys = ("form_id", "qid")
     replication_key = None
     parent_stream_type = FormsStream
 
@@ -140,10 +140,10 @@ class SubmissionsStream(JotformPaginatedStream):
     path = "/user/submissions"
     replication_key = None
 
-    INTEGER_FIELDS = [
+    INTEGER_FIELDS = (
         "flag",
         "new",
-    ]
+    )
 
     schema = th.PropertiesList(
         th.Property("id", th.StringType, description="The Submission ID"),
@@ -255,7 +255,7 @@ class UserHistory(JotformStream):
 
     name = "user_history"
     path = "/user/history"
-    primary_keys = ["username", "timestamp", "type"]
+    primary_keys = ("username", "timestamp", "type")
 
     schema = th.PropertiesList(
         th.Property(
@@ -281,9 +281,9 @@ class UserHistory(JotformStream):
 
     def get_url_params(
         self,
-        context: dict | None,
-        next_page_token: tuple[datetime.date, datetime.date] | None,
-    ) -> dict[str, t.Any]:
+        context: dict | None,  # noqa: ARG002
+        next_page_token: tuple[datetime.date, datetime.date] | None,  # noqa: ARG002
+    ) -> dict[str, t.Any] | str:
         """Get the URL parameters.
 
         Args:
@@ -293,8 +293,8 @@ class UserHistory(JotformStream):
         Returns:
             The URL parameters.
         """
-        params = super().get_url_params(context, next_page_token)
-        params["action"] = "all"
-        params["date"] = "all"
-        params["sortBy"] = "ASC"
-        return params
+        return {
+            "action": "all",
+            "date": "all",
+            "sortBy": "ASC",
+        }

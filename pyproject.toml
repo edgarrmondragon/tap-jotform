@@ -1,9 +1,9 @@
 [build-system]
-requires = ["poetry-core>=1.1.0", "poetry-dynamic-versioning"]
 build-backend = "poetry_dynamic_versioning.backend"
-
-[tool.black]
-line-length = 88
+requires = [
+  "poetry-core>=1.1",
+  "poetry-dynamic-versioning",
+]
 
 [tool.poetry]
 name = "tap-jotform"
@@ -19,12 +19,12 @@ documentation = "https://github.com/edgarrmondragon/tap-jotform/#readme"
 keywords = ["ELT", "Jotform"]
 
 [tool.poetry.dependencies]
-colorama = "==0.4.6"
+colorama = "==0.4.*"
 importlib-metadata = {version = "<5.0.0", python = "<3.8"}
 python = "<3.12,>=3.7.1"
-requests-cache = "==1.0.1"
-singer-sdk = "==0.25.0"
-structlog = "==23.1.0"
+requests-cache = "==1.1.*"
+singer-sdk = ">=0.28,<0.31"
+structlog = "==23.1.*"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.2.1"
@@ -33,20 +33,8 @@ pytest = "^7.2.1"
 # CLI declaration
 tap-jotform = 'tap_jotform.tap:TapJotform.cli'
 
-[tool.poetry-dynamic-versioning]
-enable = true
-format-jinja = """
-    {%- if distance == 0 -%}
-        {{ serialize_pep440(base, stage, revision) }}
-    {%- elif revision is not none -%}
-        {{ serialize_pep440(base, stage, revision + 1, dev=distance, metadata=[commit]) }}
-    {%- else -%}
-        {{ serialize_pep440(bump_version(base), stage, revision, dev=distance, metadata=[commit]) }}
-    {%- endif -%}
-"""
-metadata = true
-style = "pep440"
-vcs = "git"
+[tool.black]
+line-length = 88
 
 [tool.ruff]
 ignore = ["ANN101", "DJ", "PD"]
@@ -64,3 +52,18 @@ known-first-party = ["tap_jotform"]
 
 [tool.ruff.pydocstyle]
 convention = "google"
+
+[tool.poetry-dynamic-versioning]
+enable = true
+format-jinja = """
+    {%- if distance == 0 -%}
+        {{ serialize_pep440(base, stage, revision) }}
+    {%- elif revision is not none -%}
+        {{ serialize_pep440(base, stage, revision + 1, dev=distance, metadata=[commit]) }}
+    {%- else -%}
+        {{ serialize_pep440(bump_version(base), stage, revision, dev=distance, metadata=[commit]) }}
+    {%- endif -%}
+"""
+metadata = true
+style = "pep440"
+vcs = "git"
