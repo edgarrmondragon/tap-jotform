@@ -138,7 +138,6 @@ class SubmissionsStream(JotformPaginatedStream):
 
     name = "submissions"
     path = "/user/submissions"
-    replication_key = None
 
     INTEGER_FIELDS = (
         "flag",

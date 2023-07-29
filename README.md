@@ -44,19 +44,21 @@ A full list of supported settings and capabilities is available by running: `tap
 
 | Stream name | API endpoint      | API docs                                       | Notes |
 | :---------- | :---------------- | :--------------------------------------------- | :---- |
-| forms       | /user/forms       | https://api.jotform.com/docs/#user-forms       | |
+| forms       | /user/forms       | https://api.jotform.com/docs/#user-forms       | Replication for this stream is opt-in. See instructions [below](#configuring-incremental-replication). |
 | questions   | /form/{form_id}/questions | https://api.jotform.com/docs/#form-id-questions | |
-| submissions | /user/submissions | https://api.jotform.com/docs/#user-submissions | Replication for this stream is opt-in. See instructions [below](#configuring-incremental-replication-for-the-submissions-stream).  |
+| submissions | /user/submissions | https://api.jotform.com/docs/#user-submissions | Replication for this stream is opt-in. See instructions [below](#configuring-incremental-replication).  |
 | reports     | /user/reports     | https://api.jotform.com/docs/#user-reports | |
 | user_history | /user/history    | https://api.jotform.com/docs/#user-history | |
 
 
-### Configuring incremental replication for the `submissions` stream
+### Configuring incremental replication
 
-By default, the `submissions` stream is synced with `FULL_TABLE` replication. Incremental replication can be enabled by setting the replication metadata in the `submissions` stream's `metadata` object in the catalog file:
+By default, the `forms` and `submissions` stream are synced with `FULL_TABLE` replication. Incremental replication can be enabled by setting the replication metadata in the `submissions` stream's `metadata` object in the catalog file:
 
 * `replication_method`: set to`INCREMENTAL`
 * `replication_key` set to `created_at` or `updated_at`. The former will omit updated submissions, while the latter will omit new submissions.
+
+For example, to enable incremental replication for the `submissions` stream:
 
 ```json
 {
