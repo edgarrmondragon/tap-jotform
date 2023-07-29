@@ -136,6 +136,8 @@ class JotformStream(RESTStream):
 class JotformPaginatedStream(JotformStream):
     """A Jotform stream with pagination."""
 
+    replication_key: str | None = "updated_at"
+
     def get_new_paginator(self) -> JotformPaginator:
         """Return a new instance of a paginator.
 
@@ -166,8 +168,7 @@ class JotformPaginatedStream(JotformStream):
                 "Bookmark found %(bookmark)s",
                 extra={"bookmark": starting_value},
             )
-            replication_key = self.replication_key or "updated_at"
-            params["filter"] = f'{{"{replication_key}:gt": "{starting_value}"}}'
+            params["filter"] = f'{{"{self.replication_key}:gt": "{starting_value}"}}'
 
         if next_page_token:
             params["offset"] = next_page_token
