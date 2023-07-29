@@ -133,8 +133,6 @@ class JotformStream(RESTStream):
 class JotformPaginatedStream(JotformStream):
     """A Jotform stream with pagination."""
 
-    replication_key = "updated_at"
-
     def get_new_paginator(self) -> JotformPaginator:
         """Return a new instance of a paginator.
 
@@ -160,7 +158,7 @@ class JotformPaginatedStream(JotformStream):
         params: dict[str, t.Any] = {"limit": self.page_size}
 
         starting_value = self.get_starting_timestamp(context)
-        if starting_value:
+        if starting_value and self.replication_key:
             self.logger.info(
                 "Bookmark found %(bookmark)s",
                 extra={"bookmark": starting_value},
