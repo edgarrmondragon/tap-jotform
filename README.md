@@ -53,7 +53,7 @@ A full list of supported settings and capabilities is available by running: `tap
 
 ### Configuring incremental replication
 
-By default, the `forms` and `submissions` stream are synced with `FULL_TABLE` replication. Incremental replication can be enabled by setting the replication metadata in the `submissions` stream's `metadata` object in the catalog file:
+By default, the `forms` and `submissions` stream are synced with `FULL_TABLE` replication. Incremental replication can be enabled by setting the replication metadata in the stream's entry in the catalog file:
 
 * `replication_method`: set to`INCREMENTAL`
 * `replication_key` set to `created_at` or `updated_at`. The former will omit updated submissions, while the latter will omit new submissions.
