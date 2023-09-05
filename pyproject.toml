@@ -21,9 +21,9 @@ keywords = ["ELT", "Jotform"]
 [tool.poetry.dependencies]
 colorama = "==0.4.*"
 importlib-metadata = {version = "<5.0.0", python = "<3.8"}
-python = "<3.12,>=3.7.1"
+python = "<3.12,>=3.8"
 requests-cache = "==1.1.*"
-singer-sdk = ">=0.31.0,<0.32.0"
+singer-sdk = "~=0.31.0"
 structlog = "==23.1.*"
 
 [tool.poetry.group.dev.dependencies]
@@ -41,7 +41,7 @@ ignore = ["ANN101", "DJ", "PD"]
 line-length = 88
 select = ["ALL"]
 src = ["tap_jotform", "tests", "noxfile.py"]
-target-version = "py37"
+target-version = "py38"
 
 [tool.ruff.isort]
 known-first-party = ["tap_jotform"]
