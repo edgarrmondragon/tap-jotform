@@ -2,17 +2,12 @@
 
 from __future__ import annotations
 
-import sys
+from importlib import metadata
 
 from singer_sdk import Stream, Tap
 from singer_sdk import typing as th
 
 from tap_jotform import streams
-
-if sys.version_info < (3, 8):
-    import importlib_metadata as metadata
-else:
-    from importlib import metadata
 
 
 def get_package_version() -> str:
