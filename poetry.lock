@@ -702,6 +702,20 @@ tomli = {version = ">=1.0.0", markers = "python_version < \"3.11\""}
 testing = ["argcomplete", "attrs (>=19.2.0)", "hypothesis (>=3.56)", "mock", "nose", "pygments (>=2.7.2)", "requests", "setuptools", "xmlschema"]
 
 [[package]]
+name = "pytest-durations"
+version = "1.2.0"
+description = "Pytest plugin reporting fixtures and test functions execution time."
+optional = false
+python-versions = ">=3.6.2"
+files = [
+    {file = "pytest-durations-1.2.0.tar.gz", hash = "sha256:75793f7c2c393a947de4a92cc205e8dcb3d7fcde492628926cca97eb8e87077d"},
+    {file = "pytest_durations-1.2.0-py3-none-any.whl", hash = "sha256:210c649d989fdf8e864b7f614966ca2c8be5b58a5224d60089a43618c146d7fb"},
+]
+
+[package.dependencies]
+pytest = ">=4.6"
+
+[[package]]
 name = "python-dateutil"
 version = "2.8.2"
 description = "Extensions to the standard Python datetime module"
@@ -1128,6 +1142,8 @@ memoization = ">=0.3.2,<0.5.0"
 packaging = ">=23.1"
 pendulum = ">=2.1.0"
 PyJWT = ">=2.4,<3.0"
+pytest = {version = ">=7.2.1", optional = true, markers = "extra == \"testing\""}
+pytest-durations = {version = ">=1.2.0", optional = true, markers = "extra == \"testing\""}
 python-dotenv = ">=0.20,<0.22"
 pytz = ">=2022.2.1,<2024.0.0"
 PyYAML = ">=6.0"
@@ -1318,5 +1334,5 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 
 [metadata]
 lock-version = "2.0"
-python-versions = "<3.12,>=3.8"
-content-hash = "4bf6be6ccf5e8f600d5a85aada94901af63e539f52302e8748deb03f0b4de6f3"
+python-versions = ">=3.8,<4"
+content-hash = "77cb0038efd51f4e6f3f44d63309e4fa8d3e0335bc01bde7a43b3a7c9225cdf1"
