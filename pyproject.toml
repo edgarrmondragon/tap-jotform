@@ -24,7 +24,7 @@ colorama = "==0.4.*"
 importlib-metadata = {version = "==6.*", python = "<3.8"}
 requests-cache = "==1.1.*"
 singer-sdk = "==0.33.*"
-structlog = "==23.1.*"
+structlog = "==23.2.*"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "==7.*"
