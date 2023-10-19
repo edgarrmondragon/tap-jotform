@@ -27,8 +27,53 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  run:
+    runs-on: ubuntu-latest
+    env:
+      PIP_CONSTRAINT: .github/workflows/constraints.txt
+      FORCE_COLOR: "1"
+      NOXSESSION: run
+      NOXPYTHON: "3.11"
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4.1.0
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v4.7.0
+        with:
+          python-version: 3.11
+
+      - name: Install Poetry
+        run: |
+          pipx install poetry
+          pipx inject poetry poetry-dynamic-versioning[plugin]
+          poetry --version
+          poetry self show plugins
+
+      - name: Install Nox
+        run: |
+          pipx install nox
+          pipx inject nox nox-poetry
+          nox --version
+
+      - name: Run Nox
+        env:
+          TAP_JOTFORM_API_KEY: ${{ secrets.TAP_JOTFORM_API_KEY }}
+          TAP_JOTFORM_API_URL: "https://api.jotform.com"
+        run: |
+          nox
+
+      - name: Upload request cache
+        uses: actions/upload-artifact@v3
+        with:
+          name: requests-cache
+          path: http_cache.sqlite
+
   tests:
     runs-on: ubuntu-latest
+    needs: run
     env:
       PIP_CONSTRAINT: .github/workflows/constraints.txt
       NOXSESSION: ${{ matrix.session }}
@@ -37,7 +82,7 @@ jobs:
     strategy:
       matrix:
         include:
-        - {python-version: "3.10", session: "mypy"}
+        - {python-version: "3.11", session: "mypy"}
         - {python-version: "3.11", session: "tests"}
         - {python-version: "3.10", session: "tests"}
         - {python-version: "3.9", session: "tests"}
@@ -71,6 +116,11 @@ jobs:
         pipx install nox
         pipx inject nox nox-poetry
         nox --version
+
+    - name: Download request cache
+      uses: actions/download-artifact@v3
+      with:
+        name: requests-cache
 
     - name: Run Nox
       env:
