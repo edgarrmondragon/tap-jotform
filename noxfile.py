@@ -22,12 +22,25 @@ src_dir = "tap_jotform"
 tests_dir = "tests"
 
 python_versions = ["3.11", "3.10", "3.9", "3.8"]
-main_python_version = "3.10"
+main_python_version = "3.11"
 locations = src_dir, tests_dir, "noxfile.py"
 nox.options.sessions = (
     "mypy",
     "tests",
 )
+
+
+@session(python=main_python_version)
+def run(session: Session) -> None:
+    """Run the tap with request caching enabled."""
+    session.install(".")
+    session.run(
+        "tap-jotform",
+        "--config",
+        "requests_cache.config.json",
+        "--config",
+        "ENV",
+    )
 
 
 @session(python=python_versions)
