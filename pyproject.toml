@@ -43,6 +43,9 @@ select = ["ALL"]
 src = ["tap_jotform", "tests", "noxfile.py"]
 target-version = "py38"
 
+[tool.ruff.flake8-annotations]
+allow-star-arg-any = true
+
 [tool.ruff.isort]
 known-first-party = ["tap_jotform"]
 
@@ -52,6 +55,11 @@ known-first-party = ["tap_jotform"]
 
 [tool.ruff.pydocstyle]
 convention = "google"
+
+[tool.pytest.ini_options]
+addopts = [
+    "-vvv",
+]
 
 [tool.poetry-dynamic-versioning]
 enable = true

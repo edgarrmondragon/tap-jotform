@@ -1,0 +1,8 @@
+{
+    "requests_cache": {
+        "enabled": true,
+        "config": {
+            "expire_after": 3600
+        }
+    }
+}

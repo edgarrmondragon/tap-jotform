@@ -38,6 +38,13 @@ class JotformStream(RESTStream):
 
     INTEGER_FIELDS: tuple[str, ...] = ()
 
+    _requests_session: requests.Session | None
+
+    def __init__(self, *args: t.Any, **kwargs: t.Any) -> None:
+        """Initialize the stream object."""
+        super().__init__(*args, **kwargs)
+        self._requests_session = None
+
     @property
     def url_base(self) -> str:
         """Return the API URL root, configurable via tap settings.
