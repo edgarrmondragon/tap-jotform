@@ -73,6 +73,7 @@ jobs:
 
   tests:
     runs-on: ubuntu-latest
+    needs: run
     env:
       PIP_CONSTRAINT: .github/workflows/constraints.txt
       NOXSESSION: ${{ matrix.session }}
