@@ -34,27 +34,26 @@ singer-sdk = { version = "==0.33.*", extras = ["testing"] }
 # CLI declaration
 tap-jotform = 'tap_jotform.tap:TapJotform.cli'
 
-[tool.black]
-line-length = 88
-
 [tool.ruff]
-ignore = ["ANN101", "DJ", "PD"]
 line-length = 88
-select = ["ALL"]
 src = ["tap_jotform", "tests", "noxfile.py"]
 target-version = "py38"
 
-[tool.ruff.flake8-annotations]
+[tool.ruff.lint]
+ignore = ["ANN101", "DJ", "PD", "COM812", "ISC001"]
+select = ["ALL"]
+
+[tool.ruff.lint.flake8-annotations]
 allow-star-arg-any = true
 
-[tool.ruff.isort]
+[tool.ruff.lint.isort]
 known-first-party = ["tap_jotform"]
 
-[tool.ruff.per-file-ignores]
+[tool.ruff.lint.per-file-ignores]
 "noxfile.py" = ["ANN"]
 "tests/*" = ["ANN"]
 
-[tool.ruff.pydocstyle]
+[tool.ruff.lint.pydocstyle]
 convention = "google"
 
 [tool.pytest.ini_options]
