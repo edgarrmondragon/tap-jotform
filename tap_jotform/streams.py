@@ -354,3 +354,12 @@ class FoldersStream(JotformStream):
         ),
         th.Property("subfolders", th.ArrayType(th.ObjectType())),
     ).to_dict()
+
+    def post_process(self, row: dict, context: dict | None = None) -> dict:
+        """Post-process a row of data."""
+        forms = {
+            form_id: super().post_process(form, context)
+            for form_id, form in row.pop("forms", {}).items()
+        }
+        row["forms"] = forms
+        return row
