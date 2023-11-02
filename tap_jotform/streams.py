@@ -315,6 +315,13 @@ class FoldersStream(JotformStream):
     path = "/user/folders"
     primary_keys = ("id",)
 
+    INTEGER_FIELDS = (
+        "new",
+        "count",
+        "favorite",
+        "archived",
+        "height",
+    )
     TYPE_CONFORMANCE_LEVEL = TypeConformanceLevel.ROOT_ONLY
 
     schema = th.PropertiesList(
