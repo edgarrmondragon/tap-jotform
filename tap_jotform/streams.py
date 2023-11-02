@@ -358,7 +358,7 @@ class FoldersStream(JotformStream):
     def post_process(self, row: dict, context: dict | None = None) -> dict:
         """Post-process a row of data."""
         forms = {
-            form_id: super().post_process(form, context)
+            form_id: JotformStream.post_process(self, form, context)
             for form_id, form in row.pop("forms", {}).items()
         }
         row["forms"] = forms
