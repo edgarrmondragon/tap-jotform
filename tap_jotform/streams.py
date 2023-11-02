@@ -6,6 +6,7 @@ import json
 import typing as t
 
 from singer_sdk import typing as th  # JSON Schema typing helpers
+from singer_sdk.helpers._typing import TypeConformanceLevel
 
 from tap_jotform.client import JotformPaginatedStream, JotformStream
 
@@ -305,3 +306,44 @@ class UserHistory(JotformStream):
             "date": "all",
             "sortBy": "ASC",
         }
+
+
+class FoldersStream(JotformStream):
+    """Folders stream."""
+
+    name = "folders"
+    path = "/user/folders"
+    primary_keys = ("id",)
+
+    TYPE_CONFORMANCE_LEVEL = TypeConformanceLevel.ROOT_ONLY
+
+    schema = th.PropertiesList(
+        th.Property("id", th.StringType),
+        th.Property("path", th.StringType),
+        th.Property("owner", th.StringType),
+        th.Property("name", th.StringType),
+        th.Property("parent", th.StringType),
+        th.Property("color", th.StringType),
+        th.Property(
+            "forms",
+            th.ObjectType(
+                additional_properties=th.ObjectType(
+                    th.Property("id", th.StringType),
+                    th.Property("username", th.StringType),
+                    th.Property("title", th.StringType),
+                    th.Property("height", th.IntegerType),
+                    th.Property("status", th.StringType),
+                    CREATED_AT,
+                    UPDATED_AT,
+                    th.Property("last_submission", th.DateTimeType),
+                    th.Property("new", th.IntegerType),
+                    th.Property("count", th.IntegerType),
+                    th.Property("type", th.StringType),
+                    th.Property("favorite", th.IntegerType),
+                    th.Property("archived", th.IntegerType),
+                    th.Property("url", th.StringType),
+                ),
+            ),
+        ),
+        th.Property("subfolders", th.ArrayType(th.ObjectType())),
+    ).to_dict()
