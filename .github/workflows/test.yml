@@ -33,7 +33,7 @@ jobs:
       PIP_CONSTRAINT: .github/workflows/constraints.txt
       FORCE_COLOR: "1"
       NOXSESSION: run
-      NOXPYTHON: "3.11"
+      NOXPYTHON: "3.12"
     steps:
       - name: Checkout code
         uses: actions/checkout@v4.1.1
@@ -43,7 +43,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5.0.0
         with:
-          python-version: 3.11
+          python-version: 3.12
 
       - name: Install Poetry
         run: |
@@ -82,8 +82,9 @@ jobs:
     strategy:
       matrix:
         include:
-        - {python-version: "3.11", session: "mypy"}
+        - {python-version: "3.12", session: "mypy"}
         - {python-version: "3.11", session: "tests"}
+        - {python-version: "3.12", session: "tests"}
         - {python-version: "3.10", session: "tests"}
         - {python-version: "3.9", session: "tests"}
         - {python-version: "3.8", session: "tests"}
