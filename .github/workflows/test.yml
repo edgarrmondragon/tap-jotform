@@ -36,12 +36,12 @@ jobs:
       NOXPYTHON: "3.12"
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v4.1.2
         with:
           fetch-depth: 0
 
       - name: Set up Python
-        uses: actions/setup-python@v5.0.0
+        uses: actions/setup-python@v5.1.0
         with:
           python-version: 3.12
 
@@ -91,12 +91,12 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4.1.1
+      uses: actions/checkout@v4.1.2
       with:
         fetch-depth: 0
 
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v5.0.0
+      uses: actions/setup-python@v5.1.0
       with:
         python-version: ${{ matrix.python-version }}
 
