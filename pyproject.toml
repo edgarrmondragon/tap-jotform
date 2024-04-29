@@ -22,12 +22,12 @@ keywords = ["ELT", "Jotform"]
 python = ">=3.8"
 colorama = "==0.4.*"
 requests-cache = "==1.2.*"
-singer-sdk = "==0.36.*"
+singer-sdk = "==0.37.*"
 structlog = "==24.1.*"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "==8.*"
-singer-sdk = { version = "==0.36.*", extras = ["testing"] }
+singer-sdk = { version = "==0.37.*", extras = ["testing"] }
 
 [tool.poetry.scripts]
 # CLI declaration
