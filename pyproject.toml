@@ -23,7 +23,7 @@ python = ">=3.8"
 colorama = "==0.4.*"
 requests-cache = "==1.2.*"
 singer-sdk = "==0.37.*"
-structlog = "==24.1.*"
+structlog = "==24.2.*"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "==8.*"
