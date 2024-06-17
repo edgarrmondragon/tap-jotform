@@ -14,20 +14,6 @@ from singer_sdk.streams import RESTStream
 class JotformPaginator(BaseOffsetPaginator):
     """Jotform pagination class."""
 
-    def has_more(self, response: requests.Response) -> bool:
-        """Return True if there are more pages to fetch.
-
-        Args:
-            response: The response object from the last request.
-
-        Returns:
-            True if there are more pages to fetch, False otherwise.
-        """
-        result_set = response.json()["resultSet"]
-        count = int(result_set["count"])
-
-        return count == self._page_size
-
 
 class JotformStream(RESTStream):
     """Jotform stream class."""
