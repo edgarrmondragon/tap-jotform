@@ -13,6 +13,14 @@ license = "Apache-2.0"
 authors = [
   "Edgar Ramírez-Mondragón <edgarrm358@gmail.com>",
 ]
+classifiers = [
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+]
 maintainers = [
   "Edgar Ramírez-Mondragón <edgarrm358@gmail.com>",
 ]
@@ -27,6 +35,7 @@ keywords = [
 
 [tool.poetry.dependencies]
 python = ">=3.8"
+cffi = { version = ">=1.17.0rc1", python = ">=3.13" }
 colorama = "==0.4.*"
 requests-cache = "==1.2.*"
 singer-sdk = "==0.38.*"
@@ -87,6 +96,9 @@ lint.isort.known-first-party = [
   "tap_jotform",
 ]
 lint.pydocstyle.convention = "google"
+
+[tool.pyproject-fmt]
+max_supported_python = "3.13"
 
 [tool.pytest.ini_options]
 addopts = [

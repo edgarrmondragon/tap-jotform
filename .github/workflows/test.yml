@@ -26,6 +26,9 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
 
+env:
+  FORCE_COLOR: "1"
+
 jobs:
   run:
     runs-on: ubuntu-latest
@@ -83,11 +86,12 @@ jobs:
       matrix:
         include:
         - {python-version: "3.12", session: "mypy"}
-        - {python-version: "3.11", session: "tests"}
+        - {python-version: "3.13", session: "tests"}
         - {python-version: "3.12", session: "tests"}
+        - {python-version: "3.11", session: "tests"}
         - {python-version: "3.10", session: "tests"}
-        - {python-version: "3.9", session: "tests"}
-        - {python-version: "3.8", session: "tests"}
+        - {python-version: "3.9",  session: "tests"}
+        - {python-version: "3.8",  session: "tests"}
 
     steps:
     - name: Checkout code
@@ -99,6 +103,9 @@ jobs:
       uses: actions/setup-python@v5.1.0
       with:
         python-version: ${{ matrix.python-version }}
+        allow-prereleases: true
+        cache: pip
+        cache-dependency-path: poetry.lock
 
     - name: Upgrade pip
       run: |
@@ -128,4 +135,4 @@ jobs:
         TAP_JOTFORM_API_KEY: ${{ secrets.TAP_JOTFORM_API_KEY }}
         TAP_JOTFORM_API_URL: "https://api.jotform.com"
       run: |
-        nox
+        nox --verbose
