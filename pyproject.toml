@@ -39,7 +39,7 @@ cffi = { version = ">=1.17.0rc1", python = ">=3.13" }
 colorama = "==0.4.*"
 requests-cache = "==1.2.*"
 singer-sdk = "==0.38.*"
-structlog = "==24.2.*"
+structlog = "==24.4.*"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "==8.*"
