@@ -10,6 +10,9 @@ from singer_sdk.authenticators import APIKeyAuthenticator
 from singer_sdk.pagination import BaseOffsetPaginator
 from singer_sdk.streams import RESTStream
 
+if t.TYPE_CHECKING:
+    from singer_sdk.helpers.types import Context, Record
+
 
 class JotformPaginator(BaseOffsetPaginator):
     """Jotform pagination class."""
@@ -82,8 +85,8 @@ class JotformStream(RESTStream):
 
     def post_process(
         self,
-        row: dict,
-        context: dict | None = None,  # noqa: ARG002
+        row: Record,
+        context: Context | None = None,  # noqa: ARG002
     ) -> dict:
         """Post-process a record.
 
@@ -150,7 +153,7 @@ class JotformPaginatedStream(JotformStream):
 
     def get_url_params(
         self,
-        context: dict | None,
+        context: Context | None,
         next_page_token: int | None,
     ) -> dict[str, t.Any]:
         """Return a dictionary of values to be used in URL parameterization.
@@ -177,7 +180,7 @@ class JotformPaginatedStream(JotformStream):
 
         return params
 
-    def post_process(self, row: dict, context: dict | None = None) -> dict:
+    def post_process(self, row: Record, context: Context | None = None) -> Record:
         """Post-process a record.
 
         Args:
