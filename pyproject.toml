@@ -35,15 +35,14 @@ keywords = [
 
 [tool.poetry.dependencies]
 python = ">=3.8"
-cffi = { version = ">=1.17.0rc1", python = ">=3.13" }
 colorama = "==0.4.*"
 requests-cache = "==1.2.*"
-singer-sdk = "==0.38.*"
+singer-sdk = "==0.39.*"
 structlog = "==24.4.*"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "==8.*"
-singer-sdk = { version = "==0.38.*", extras = [
+singer-sdk = { version = "==0.39.*", extras = [
   "testing",
 ] }
 

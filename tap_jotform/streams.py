@@ -303,7 +303,7 @@ class UserHistory(JotformStream):
         """
         return {
             "action": "all",
-            "date": "all",
+            "date": "lastWeek",
             "sortBy": "ASC",
         }
 
