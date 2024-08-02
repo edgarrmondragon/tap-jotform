@@ -11,9 +11,8 @@ from singer_sdk.helpers._typing import TypeConformanceLevel
 from tap_jotform.client import JotformPaginatedStream, JotformStream
 
 if t.TYPE_CHECKING:
-    import datetime
-
     import requests
+    from singer_sdk.helpers.types import Context, Record
 
 CREATED_AT = th.Property("created_at", th.DateTimeType)
 UPDATED_AT = th.Property("updated_at", th.DateTimeType)
@@ -64,8 +63,8 @@ class FormsStream(JotformPaginatedStream):
 
     def get_child_context(
         self,
-        record: dict,
-        context: dict | None,  # noqa: ARG002
+        record: Record,
+        context: Context | None,  # noqa: ARG002
     ) -> dict:
         """Return a context dictionary for child streams.
 
@@ -174,7 +173,7 @@ class SubmissionsStream(JotformPaginatedStream):
         ),
     ).to_dict()
 
-    def post_process(self, row: dict, context: dict | None = None) -> dict:
+    def post_process(self, row: Record, context: Context | None = None) -> Record:
         """Post-process a row.
 
         Args:
@@ -234,7 +233,7 @@ class ReportsStream(JotformStream):
         th.Property("last_submission", th.DateTimeType),
     ).to_dict()
 
-    def post_process(self, row: dict, context: dict | None = None) -> dict:
+    def post_process(self, row: Record, context: Context | None = None) -> Record:
         """Post-process a row of data.
 
         Args:
@@ -289,8 +288,8 @@ class UserHistory(JotformStream):
 
     def get_url_params(
         self,
-        context: dict | None,  # noqa: ARG002
-        next_page_token: tuple[datetime.date, datetime.date] | None,  # noqa: ARG002
+        context: Context | None,  # noqa: ARG002
+        next_page_token: t.Any | None,  # noqa: ANN401, ARG002
     ) -> dict[str, t.Any] | str:
         """Get the URL parameters.
 
@@ -355,7 +354,7 @@ class FoldersStream(JotformStream):
         th.Property("subfolders", th.ArrayType(th.ObjectType())),
     ).to_dict()
 
-    def post_process(self, row: dict, context: dict | None = None) -> dict:
+    def post_process(self, row: Record, context: Context | None = None) -> Record:
         """Post-process a row of data."""
         forms = {
             form_id: JotformStream.post_process(self, form, context)
