@@ -37,12 +37,12 @@ keywords = [
 python = ">=3.8"
 colorama = "==0.4.*"
 requests-cache = "==1.2.*"
-singer-sdk = "==0.39.*"
+singer-sdk = "==0.40.*"
 structlog = "==24.4.*"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "==8.*"
-singer-sdk = { version = "==0.39.*", extras = [
+singer-sdk = { version = "==0.40.*", extras = [
   "testing",
 ] }
 
