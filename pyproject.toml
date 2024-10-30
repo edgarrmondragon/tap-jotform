@@ -14,7 +14,6 @@ authors = [
   "Edgar Ramírez-Mondragón <edgarrm358@gmail.com>",
 ]
 classifiers = [
-  "Programming Language :: Python :: 3.8",
   "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
@@ -34,7 +33,7 @@ keywords = [
 ]
 
 [tool.poetry.dependencies]
-python = ">=3.8"
+python = ">=3.9"
 colorama = "==0.4.*"
 requests-cache = "==1.2.*"
 singer-sdk = "==0.41.*"
@@ -66,7 +65,7 @@ style = "pep440"
 vcs = "git"
 
 [tool.ruff]
-target-version = "py38"
+target-version = "py39"
 
 line-length = 88
 src = [
