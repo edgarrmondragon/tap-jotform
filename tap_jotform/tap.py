@@ -95,4 +95,5 @@ class TapJotform(Tap):
             streams.ReportsStream(self),
             streams.UserHistory(self),
             streams.FoldersStream(self),
+            streams.SubusersStream(self),
         ]
